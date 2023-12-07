@@ -3,7 +3,7 @@ const cors=require('cors')
 const mongoose=require('mongoose')
 const app=express()
 app.use(cors());
-const apiData=require('./propertyData.json')
+// const apiData=require('./propertyData.json')
 
 mongoose.connect('mongodb+srv://dhruvGupta:1234@cluster0.ij2fd.mongodb.net/chapterkings').then((db)=>{
     console.log("Connected")
@@ -23,18 +23,14 @@ const Propertyschema=new mongoose.Schema({
     suiteName:String,
     perWeekPrice:String
 }, { collection: 'propertyData' })
+
 const propData=mongoose.model('Property',Propertyschema)
 const port=process.env.PORT||3002
+
 app.get('/',async (req,res)=>{
     const data=await propData.find({});
     // console.log(data)
-    if(data){
-        console.log("apiData",apiData)
-    }
-    else{
-        console.log("errrp")
-    }
-    res.send(apiData)
+    res.send(data)
 })
 
 app.listen(port,()=>{
