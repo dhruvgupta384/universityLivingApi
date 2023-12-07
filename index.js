@@ -3,7 +3,7 @@ const cors=require('cors')
 const mongoose=require('mongoose')
 const app=express()
 app.use(cors());
-// const apiData=require('./propertyData.json')
+const apiData=require('./propertyData.json')
 
 mongoose.connect('mongodb+srv://dhruvGupta:1234@cluster0.ij2fd.mongodb.net/chapterkings').then((db)=>{
     console.log("Connected")
@@ -28,7 +28,13 @@ const port=process.env.PORT||3002
 app.get('/',async (req,res)=>{
     const data=await propData.find({});
     // console.log(data)
-    res.send(data)
+    if(data){
+        console.log("apiData",apiData)
+    }
+    else{
+        console.log("errrp")
+    }
+    res.send(apiData)
 })
 
 app.listen(port,()=>{
